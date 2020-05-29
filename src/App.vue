@@ -1,16 +1,16 @@
 <template>
   <div id="app"> 
-    <Listagem/>
+    <Cadastro/>
   </div>
 </template>
 
 <script>
-import Listagem from './components/Listagem.vue'
+import Cadastro from './components/Listagem'
 
 export default {
   name: 'App',
   components: {
-    Listagem
+    Cadastro
   }
 }
 </script>

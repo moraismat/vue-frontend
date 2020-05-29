@@ -4,11 +4,11 @@
             <a class="navbar-brand">Portal de Projetos</a>
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" @click="listar()">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" id="campo" type="submit" @click="listar()">Search</button>
             </form>
         </nav>
     
-        <table class="table">
+        <table class="table" style="height: auto">
             <thead class="thead-dark">
                 <tr >
                 <th scope="col">#</th>
@@ -20,14 +20,18 @@
                 <th scope="col"><button type="button" class="btn btn-outline-light">Novo Projeto</button></th>
                 </tr>
             </thead>
-            <tbody v-show="projetos.length > 0">
+            <tbody>
                 <tr v-for="projeto of projetos" :key="projeto.id">
                 <th scope="row">{{projeto.id}}</th>
                 <td>{{projeto.titulo}}</td>
                 <td>{{projeto.descricao}}</td>
                 <td>{{projeto.cliente}}</td>
                 <td>{{projeto.data}}</td>
-                <td>{{projeto.pessoasEnvolvidas}}</td>
+                <td>
+                    <ul id="nav" v-for="pessoa of projeto.pessoasEnvolvidas" :key="pessoa.id">
+                        <li>{{pessoa.nome}}</li>
+                    </ul>
+                </td>
                 <button type="button" class="btn btn-primary">Editar</button>
                 <button type="button" class="btn btn-danger">Remover</button>
                 </tr>
@@ -41,33 +45,42 @@
     import Projeto from '../service/projetos'
 
     export default {
-        
-         data(){
+        name: 'app',
+        data(){
             return{
+            
+
             projeto: {
                 id: '',
                 titulo: '',
                 descricao: '',
                 cliente: '',
-                dataEntrega: '',
-                pessoasEnvolvidas: {
-                    id: '',
+                data: '',
+                pessoasEnvolvidas: [{
+                     id: '',
                     nome: '',
                     cpf: '',
-                    email: ''
-                }
+                    email: '' 
+                }]   
             },
             projetos: []
+            
+            
             }
+        },
+
+        mounted(){
+            this.listar()
         },
 
         methods: {
             listar(){
                 Projeto.listar().then(resposta => {
-                this.projeto = {}
-                this.projetos = resposta.data
-            })
-    }
+                    this.projeto = {}
+                    this.projetos = resposta.data
+                })
+            }
+            
         }
 
 

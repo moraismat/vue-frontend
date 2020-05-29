@@ -1,7 +1,7 @@
-import {http} from './config'
+import { http } from './config'
 
 export default{
-    listar:() => {
-        return http.get('projetos')
-    } 
+    listar:()=>{
+		return http.get()
+  },
 }
