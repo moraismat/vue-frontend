@@ -4,20 +4,20 @@
             <a class="navbar-brand">Portal de Projetos</a>
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" id="campo" type="submit" @click="listar()">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="pesquisar()">Search</button>
             </form>
-        </nav>
+        </nav>  
     
         <table class="table" style="height: auto">
             <thead class="thead-dark">
-                <tr >
+                <tr>
                 <th scope="col">#</th>
                 <th scope="col">Titulo</th>
                 <th scope="col">Decrição</th>
                 <th scope="col">Cliente</th>
                 <th scope="col">Data</th>
                 <th scope="col">Pessoas Envolvidas</th>
-                <th scope="col"><button type="button" class="btn btn-outline-light">Novo Projeto</button></th>
+                <th scope="col"><router-link to="/cadastro">Novo Projeto</router-link></th>
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +33,7 @@
                     </ul>
                 </td>
                 <button type="button" class="btn btn-primary">Editar</button>
-                <button type="button" class="btn btn-danger">Remover</button>
+                <button type="button" class="btn btn-danger" @click="remover(projeto)">Remover</button>
                 </tr>
             </tbody>
         </table>
@@ -76,13 +76,23 @@
         methods: {
             listar(){
                 Projeto.listar().then(resposta => {
+                    console.log(resposta)
                     this.projeto = {}
                     this.projetos = resposta.data
+                })
+            },
+            pesquisar(){
+                Projeto.pesquisar('ACI').then(resposta => {
+                    this.projetos = resposta.data
+                })
+            },
+            remover(projeto){
+                Projeto.delete(projeto).then(() => {
+                    this.listar()
                 })
             }
             
         }
-
 
     }
 </script>
