@@ -1,5 +1,7 @@
 <template>
   <form>
+
+        {{id}}
     <div class="form-group">
       <label>Titulo do Projeto</label>
       <input
@@ -44,36 +46,35 @@
         </label>
       </div>
     </div>
-    <router-link to="/cadastro">
+    <router-link to="/listagem">
       <button type="submit" class="btn btn-primary">Salvar</button>
     </router-link>
     <router-link to="/listagem">
       <button type="submit" class="btn btn-primary">Cancelar</button>
     </router-link>
   </form>
+  
 </template>
 <script>
-
 export default {
-  name: "app",
+  props: ['id'],  
   data() {
     return {
       projeto: {
-        titulo: '',
-        descricao: '',
-        cliente: '',
-        data: '',
-        nome: '',
-        cpf: '',
-        email: ''
+        titulo: "",
+        descricao: "",
+        cliente: "",
+        data: "",
+        nome: "",
+        cpf: "",
+        email: ""
       }
     };
   },
   methods: {
-
-    irParaListagem(){
-      this.$router.push({ name: 'listagem'})
-    },
+    irParaListagem() {
+      this.$router.push({ name: "listagem" });
+    }
   }
 };
 </script>
