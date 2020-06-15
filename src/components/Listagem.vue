@@ -56,62 +56,15 @@ export default {
       pesquisa: {
         titulo: ''
       },
+      projetos: []
 
-      projeto: {
-        id: '1',
-        titulo: 'Teste01',
-        descricao: 'Des01',
-        cliente: 'Teste',
-        data: '30/07/1996',
-        pessoasEnvolvidas: [
-          {
-            id: '1',
-            nome: 'Nome01',
-            cpf: '165161',
-            email: 'teste@gmail.com'
-          }
-        ]
-      },
-      projetos: [{
-        id: '1',
-        titulo: 'Teste01',
-        descricao: 'Desc01',
-        cliente: 'Cli01',
-        data: '30/07/1996',
-        pessoasEnvolvidas: [
-          {
-            id: '1',
-            nome: 'Matheus',
-            cpf: '165161',
-            email: 'Matheus@gmail.com'
-          },{
-            id: '2',
-            nome: 'Raquel',
-            cpf: '165161',
-            email: 'Raquel@gmail.com'
-          }
-        ]
-      },{
-        id: '2',
-        titulo: 'Teste02',
-        descricao: 'Des02',
-        cliente: 'Cliente02',
-        data: '30/07/1996',
-        pessoasEnvolvidas: [
-          {
-            id: '1',
-            nome: 'Pessoa01',
-            cpf: '165161',
-            email: 'Pessoa01@gmail.com'
-          }
-        ]
-      },]
     };
   },
-  watch: {
-    $route(to, ){
-      this.id = to.params.id
-    }
+  created() {
+    this.$http.get('usuario.json').then(res => {
+      console.log(res)
+      this.projetos = res.data
+    })
   },
   methods: {
 
@@ -122,8 +75,12 @@ export default {
     irParaEditar(projeto){
       this.$router.push({ name: 'editar', params: {id: projeto}})
     },
-
-  }
+  },/*
+  mounted() {
+    this.$http.get('usuario.json').then(res => {
+      this.projetos = res.data
+    })
+  }*/
 
 };
 </script>

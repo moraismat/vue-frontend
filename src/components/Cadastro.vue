@@ -31,25 +31,21 @@
       <label>Pessoas Envolvidas</label>
       <div>
         <label>
-          Nome
-          <input type="text" class="form-control" v-model="projeto.nome" placeholder="Nome" />
+          Nome: 
         </label>
+        <input type="text" class="form-control" v-model="pessoas.nome" placeholder="Nome" />        
         <label>
-          Cpf
-          <input type="text" class="form-control" v-model="projeto.cpf" placeholder="Cpf" />
+          Cpf:
         </label>
+          <input type="text" class="form-control" v-model="pessoas.cpf" placeholder="Cpf" />        
         <label>
           Email
-          <input type="text" class="form-control" v-model="projeto.email" placeholder="Email" />
-        </label>
+        </label> 
+         <input type="text" class="form-control" v-model="pessoas.email" placeholder="Email" />      
       </div>
     </div>
-    <router-link to="/cadastro">
-      <button type="submit" class="btn btn-primary">Salvar</button>
-    </router-link>
-    <router-link to="/listagem">
-      <button type="submit" class="btn btn-primary">Cancelar</button>
-    </router-link>
+      <button type="submit" @click="salvar()" class="btn btn-primary">Salvar</button>
+      <button type="submit" @click="irParaListagem" class="btn btn-primary">Cancelar</button>
   </form>
 </template>
 <script>
@@ -58,22 +54,32 @@ export default {
   name: "app",
   data() {
     return {
+      pessoas: {
+          nome: '',
+          cpf: '',
+          email: ''
+      },
       projeto: {
         titulo: '',
         descricao: '',
         cliente: '',
         data: '',
-        nome: '',
-        cpf: '',
-        email: ''
+        pessoasEnvolvidas: []
       }
     };
   },
   methods: {
-
-    irParaListagem(){
+    irParaListagem() {
       this.$router.push({ name: 'listagem'})
     },
+
+    salvar() {
+      this.projeto.pessoasEnvolvidas.push(this.pessoas)
+      console.log(this.projeto)
+      this.$http.post('usuario.json', this.projeto),
+      this.irParaListagem()
+    }
+
   }
 };
 </script>
