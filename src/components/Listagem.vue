@@ -41,7 +41,7 @@
               <li>{{pessoa.nome}}</li>
             </ul>
           </td>
-          <button class="btn btn-primary" @click="irParaEditar(projeto.id)"> Editar</button>
+          <button class="btn btn-primary" @click="irParaEditar(projeto)"> Editar</button>
           <button class="btn btn-danger">Remover</button>
         </tr>
       </tbody>
@@ -59,14 +59,14 @@ export default {
 
       projeto: {
         id: '1',
-        titulo: 'Teste',
-        descricao: 'Teste',
+        titulo: 'Teste01',
+        descricao: 'Des01',
         cliente: 'Teste',
         data: '30/07/1996',
         pessoasEnvolvidas: [
           {
             id: '1',
-            nome: 'Teste',
+            nome: 'Nome01',
             cpf: '165161',
             email: 'teste@gmail.com'
           }
@@ -74,30 +74,35 @@ export default {
       },
       projetos: [{
         id: '1',
-        titulo: 'Teste',
-        descricao: 'Teste',
-        cliente: 'Teste',
+        titulo: 'Teste01',
+        descricao: 'Desc01',
+        cliente: 'Cli01',
         data: '30/07/1996',
         pessoasEnvolvidas: [
           {
             id: '1',
-            nome: 'Teste',
+            nome: 'Matheus',
             cpf: '165161',
-            email: 'teste@gmail.com'
+            email: 'Matheus@gmail.com'
+          },{
+            id: '2',
+            nome: 'Raquel',
+            cpf: '165161',
+            email: 'Raquel@gmail.com'
           }
         ]
       },{
         id: '2',
-        titulo: 'Teste',
-        descricao: 'Teste',
-        cliente: 'Teste',
+        titulo: 'Teste02',
+        descricao: 'Des02',
+        cliente: 'Cliente02',
         data: '30/07/1996',
         pessoasEnvolvidas: [
           {
             id: '1',
-            nome: 'Teste',
+            nome: 'Pessoa01',
             cpf: '165161',
-            email: 'teste@gmail.com'
+            email: 'Pessoa01@gmail.com'
           }
         ]
       },]
@@ -114,8 +119,8 @@ export default {
       this.$router.push({ name: 'cadastro'})
     },
     
-    irParaEditar(id){
-      this.$router.push({ name: 'editar', params: {id: id}})
+    irParaEditar(projeto){
+      this.$router.push({ name: 'editar', params: {id: projeto}})
     },
 
   }
