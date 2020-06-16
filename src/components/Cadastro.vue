@@ -74,9 +74,8 @@ export default {
     },
 
     salvar() {
-      this.projeto.pessoasEnvolvidas.push(this.pessoas)
-      console.log(this.projeto)
-      this.$http.post('usuario.json', this.projeto),
+      this.projeto.pessoasEnvolvidas.push(this.pessoas),
+      this.$http.post('projetos', this.projeto),
       this.irParaListagem()
     }
 

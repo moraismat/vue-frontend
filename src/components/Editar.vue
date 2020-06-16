@@ -1,5 +1,6 @@
 <template>
-  <form>      
+  <form>  
+    {{projeto.id}}    
     <div class="form-group">
       <label>Titulo do Projeto</label>
       <input
@@ -30,22 +31,22 @@
     </div>
     <div class="form-group">
       <label>Pessoas Envolvidas</label>
-      <div v-for="pessoa of projeto.pessoasEnvolvidas" :key="pessoa.id">
+      <div v-for="pessoas of projeto.pessoasEnvolvidas" :key="pessoas.id">
         <label>
           Nome
-          <input type="text" class="form-control" v-model="pessoa.nome" placeholder="Nome" />
+          <input type="text" class="form-control" v-model="pessoas.nome" placeholder="Nome" />
         </label>
         <label>
           Cpf
-          <input type="text" class="form-control" v-model="pessoa.cpf" placeholder="Cpf" />
+          <input type="text" class="form-control" v-model="pessoas.cpf" placeholder="Cpf" />
         </label>
         <label>
           Email
-          <input type="text" class="form-control" v-model="pessoa.email" placeholder="Email" />
+          <input type="text" class="form-control" v-model="pessoas.email" placeholder="Email" />
         </label>
       </div>
     </div>
-      <button type="submit" @click="irParaListagem" class="btn btn-primary">Salvar</button>
+      <button type="submit" @click="salvar(projeto.id)" class="btn btn-primary">Salvar</button>
       <button type="submit" @click="irParaListagem" class="btn btn-primary">Cancelar</button>
   </form>
   
@@ -57,15 +58,12 @@ export default {
   data() {
     return {
       projeto: {
+        id: '',
         titulo: '',
         descricao: '',
         cliente: '',
         data: '',
-        pessoasEnvolvidas: [{
-          nome: '',
-          cpf: '',
-          email: ''
-        }]
+        pessoasEnvolvidas: []
       }
     };
   },
@@ -73,6 +71,10 @@ export default {
     this.projeto = this.id
   },
   methods: {
+    salvar(id){
+      this.$http.put(`projetos/${id}`, this.projeto),
+      this.$router.push({ name: "listagem" })
+    },
     irParaListagem() {
       this.$router.push({ name: "listagem" });
     }

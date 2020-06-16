@@ -42,7 +42,7 @@
             </ul>
           </td>
           <button class="btn btn-primary" @click="irParaEditar(projeto)"> Editar</button>
-          <button class="btn btn-danger">Remover</button>
+          <button class="btn btn-danger" @click="apagar(projeto.id)">Remover</button>
         </tr>
       </tbody>
     </table>
@@ -60,11 +60,8 @@ export default {
 
     };
   },
-  created() {
-    this.$http.get('usuario.json').then(res => {
-      console.log(res)
-      this.projetos = res.data
-    })
+  mounted() {
+    this.listarTudo()
   },
   methods: {
 
@@ -75,6 +72,18 @@ export default {
     irParaEditar(projeto){
       this.$router.push({ name: 'editar', params: {id: projeto}})
     },
+
+    listarTudo(){
+      this.$http.get('projetos').then(res => {
+      this.projetos = res.data
+      })
+    },
+    apagar(id){
+      this.$http.delete(`projetos/${id}`).then(res =>{
+        console.log(res),
+        this.listarTudo()
+      })
+    }
   },/*
   mounted() {
     this.$http.get('usuario.json').then(res => {
