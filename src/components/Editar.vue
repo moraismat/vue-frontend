@@ -62,10 +62,11 @@
           Email:
           <input type="text" class="form-control" v-model="pessoa.email" placeholder="Email" />
         </label>
-        <button type="submit">Adicionar</button>
+        <button type="submit" @click="adicionar">Adicionar</button>
     </div>
       <button type="submit" @click="salvar(projeto.id)" class="btn btn-primary">Salvar</button>
       <button type="submit" @click="irParaListagem" class="btn btn-primary">Cancelar</button>
+      
   </form>
   
 </template>
@@ -111,7 +112,13 @@ export default {
       this.$http.delete(`pessoa/${id}`).then(res => {
         console.log(res)
       })
-    } 
+    },
+    adicionar(){
+      this.$http.post(`pessoa/add/${this.id}`, this.pessoa).then(res => {
+        console.log(res),
+        this.pessoa = {}
+      })
+    }
   }
 };
 </script>
