@@ -7,12 +7,13 @@
           class="form-control mr-sm-2"
           type="search"
           placeholder="Search"
-          v-model="pesquisa.titulo"
+          v-model="titulo"
           aria-label="Search"
         />
         <button
           type="button"
           class="btn btn-outline-success my-2 my-sm-0"
+          @click="pesquisar(titulo)"
         >Search</button>
       </form>
     </nav>
@@ -20,10 +21,10 @@
     <table class="table" style="height: auto">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Titulo</th>
-          <th scope="col">Decrição</th>
-          <th scope="col">Cliente</th>
+          <th scope="col" @click="ordernarId">#</th>
+          <th scope="col" @click="ordernarTitulo">Titulo</th>
+          <th scope="col" @click="ordernarDescricao">Decrição</th>
+          <th scope="col" @click="ordernarCliente">Cliente</th>
           <th scope="col">Data</th>
           <th scope="col">Pessoas Envolvidas</th>
           <th><button @click="irParaCadastro">Novo Cadastro</button></th>
@@ -53,11 +54,12 @@ export default {
   name: "app",
   data() {
     return {
-      pesquisa: {
-        titulo: ''
-      },
+      titulo: '',
+      clickId: 0,
+      clickTitulo: 0,
+      clickDescricao: 0,
+      clickCliente: 0,
       projetos: []
-
     };
   },
   mounted() {
@@ -83,14 +85,74 @@ export default {
         console.log(res),
         this.listarTudo()
       })
-    }
-  },/*
-  mounted() {
-    this.$http.get('usuario.json').then(res => {
-      this.projetos = res.data
-    })
-  }*/
+    },
+    pesquisar(titulo){
+      this.$http.get(`projetos/pesquisa?titulo=${titulo}`).then(res => {
+        //console.log(res),
+        this.projetos = {},
+        this.projetos = res.data
+      })
+    },
+    ordernarId(){
+      this.clickId++
+      let direction = ''
 
+      if(this.clickId%2 === 0){
+        direction = 'DESC'
+      }else{
+        direction = 'ASC'
+      }
+      this.$http.get(`projetos/page?orderBy=id&direction=${direction}`).then(res => {
+        
+        this.projetos = {},
+        this.projetos = res.data.content
+      })
+    },
+    ordernarTitulo(){
+      this.clickTitulo++
+      let direction = ''
+
+      if(this.clickTitulo%2 === 0){
+        direction = 'DESC'
+      }else{
+        direction = 'ASC'
+      }
+      //console.log(this.click, direction)
+      this.$http.get(`projetos/page?orderBy=titulo&direction=${direction}`).then(res => {
+        console.log(res),
+        this.projetos = {},
+        this.projetos = res.data.content
+      })
+    },
+    ordernarDescricao(){
+      this.clickDescricao++
+      let direction = ''
+
+      if(this.clickDescricao%2 === 0){
+        direction = 'DESC'
+      }else{
+        direction = 'ASC'
+      }
+      this.$http.get(`projetos/page?orderBy=descricao&direction=${direction}`).then(res => {
+        this.projetos = {},
+        this.projetos = res.data.content
+      })
+    },
+    ordernarCliente(){
+      this.clickCliente++
+      let direction = ''
+
+      if(this.clickCliente%2 === 0){
+        direction = 'DESC'
+      }else{
+        direction = 'ASC'
+      }
+      this.$http.get(`projetos/page?orderBy=cliente&direction=${direction}`).then(res => {
+        this.projetos = {},
+        this.projetos = res.data.content
+      })
+    },
+  }, 
 };
 </script>
 <style scoped>

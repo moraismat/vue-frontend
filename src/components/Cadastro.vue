@@ -44,7 +44,7 @@
          <input type="text" class="form-control" v-model="pessoas.email" placeholder="Email" />      
       </div>
     </div>
-      <button type="submit" @click="salvar()" class="btn btn-primary">Salvar</button>
+      <button type="submit" @click="salvar" class="btn btn-primary">Salvar</button>
       <button type="submit" @click="irParaListagem" class="btn btn-primary">Cancelar</button>
   </form>
 </template>
