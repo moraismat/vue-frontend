@@ -32,6 +32,8 @@
     <div class="form-group">
       <label>Pessoas Envolvidas</label>
       <div v-for="pessoas of projeto.pessoasEnvolvidas" :key="pessoas.id">
+        <label>ID:</label>
+         {{pessoas.id}}
         <label>
           Nome
           <input type="text" class="form-control" v-model="pessoas.nome" placeholder="Nome" />
@@ -44,7 +46,23 @@
           Email
           <input type="text" class="form-control" v-model="pessoas.email" placeholder="Email" />
         </label>
+        <button @click="remover(pessoas.id)">Remover</button>
       </div>
+    </div>
+    <div>
+       <label>
+          Nome:
+          <input type="text" class="form-control" v-model="pessoa.nome" placeholder="Nome" />
+        </label>
+        <label>
+          Cpf:
+          <input type="text" class="form-control" v-model="pessoa.cpf" placeholder="Cpf" />
+        </label>
+        <label>
+          Email:
+          <input type="text" class="form-control" v-model="pessoa.email" placeholder="Email" />
+        </label>
+        <button type="submit">Adicionar</button>
     </div>
       <button type="submit" @click="salvar(projeto.id)" class="btn btn-primary">Salvar</button>
       <button type="submit" @click="irParaListagem" class="btn btn-primary">Cancelar</button>
@@ -57,6 +75,11 @@ export default {
 
   data() {
     return {
+      pessoa: {
+        nome: '',
+        cpf: '',
+        email: ''
+      },
       projeto: {
         id: '',
         titulo: '',
@@ -68,7 +91,7 @@ export default {
     };
   },
   mounted(){
-    this.projeto = this.id
+    this.listar()
   },
   methods: {
     salvar(id){
@@ -77,7 +100,18 @@ export default {
     },
     irParaListagem() {
       this.$router.push({ name: "listagem" });
-    }
+    },
+    listar() {
+      this.$http.get(`projetos/${this.id}`).then(res => {
+        console.log(res)
+        this.projeto = res.data
+      })
+    },
+    remover(id){
+      this.$http.delete(`pessoa/${id}`).then(res => {
+        console.log(res)
+      })
+    } 
   }
 };
 </script>

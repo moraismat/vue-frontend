@@ -42,7 +42,7 @@
               <li>{{pessoa.nome}}</li>
             </ul>
           </td>
-          <button class="btn btn-primary" @click="irParaEditar(projeto)"> Editar</button>
+          <button class="btn btn-primary" @click="irParaEditar(projeto.id)"> Editar</button>
           <button class="btn btn-danger" @click="apagar(projeto.id)">Remover</button>
         </tr>
       </tbody>
