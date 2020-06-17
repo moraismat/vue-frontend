@@ -27,7 +27,7 @@
           <th scope="col" @click="ordernarCliente">Cliente</th>
           <th scope="col">Data</th>
           <th scope="col">Pessoas Envolvidas</th>
-          <th><button @click="irParaCadastro">Novo Cadastro</button></th>
+          <th><button @click="irParaCadastro" class="btn btn-primary">Novo Cadastro</button></th>
         </tr>
       </thead>
       <tbody  v-for="projeto in projetos" :key="projeto.id"> 
